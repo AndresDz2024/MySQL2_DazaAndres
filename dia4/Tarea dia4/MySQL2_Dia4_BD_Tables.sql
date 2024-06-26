@@ -11,21 +11,21 @@ create table cliente (
     nombre1 varchar(25) not null,
     nombre2 varchar(25),
     apellido1 varchar(25) not null,
-    apellido2 varchar(25) not null,
-    email varchar(25) not null,
-    cedula int(15) not null,
-    celular varchar(25),
-    ciudad_residencia varchar(25),
-    direccion varchar(25)
+    apellido2 varchar(25),
+    email varchar(50) not null,
+    cedula varchar(25) not null,
+    celular varchar(25) not null,
+    ciudad_residencia varchar(25) not null,
+    direccion varchar(25) not null
 );
 
 create table sucursales(
 	id int primary key,
-    email varchar(25),
-    celular varchar(25),
-    telefono varchar(25),
-    ciudad varchar(25),
-    direccion varchar(25)
+    email varchar(25) not null,
+    celular varchar(25) not null,
+    telefono varchar(25) not null,
+    ciudad varchar(25) not null,
+    direccion varchar(25) not null
 );
 
 create table empleado(
@@ -33,9 +33,9 @@ create table empleado(
     nombre1 varchar(25) not null,
     nombre2 varchar(25),
     apellido1 varchar(25) not null,
-    apellido2 varchar(25) not null,
-    email varchar(25) not null,
-    cedula int(15) not null,
+    apellido2 varchar(25),
+    email varchar(50) not null,
+    cedula varchar(25) not null,
     celular varchar(25) not null,
     ciudad_residencia varchar(25) not null,
     direccion varchar(25) not null,
@@ -69,7 +69,7 @@ create table alquileres(
     id_vehiculo int,
     id_empleado int,
     id_cliente int,
-    id_secursal_salida int,
+    id_sucursal_salida int,
     id_sucursal_llegada int,
     foreign key (id_vehiculo) references vehiculo(id),
     foreign key (id_empleado) references empleado(id),
@@ -77,6 +77,4 @@ create table alquileres(
     foreign key (id_sucursal_salida) references sucursales(id),
 	foreign key (id_sucursal_llegada) references sucursales(id)
 );
-	
-
 ## Desarrollado por: Andres Daza / T.I. 1095916023
