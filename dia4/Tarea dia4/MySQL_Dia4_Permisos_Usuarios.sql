@@ -1,4 +1,5 @@
 use AutoRental;
+
 ## Crear usuarios
 create user 'empleado'@'localhost' identified by 'contraseña_empleado';
 create user 'director'@'localhost' identified by 'contraseña_director';
@@ -19,5 +20,9 @@ grant execute on procedure AutoRental.actualizar_cliente to 'empleado'@'localhos
 grant execute on procedure AutoRental.registrar_empleado to 'director'@'localhost';
 grant execute on procedure AutoRental.actualizar_empleado to 'director'@'localhost';
 
+## verificar privilegios de cada usuario
 SHOW GRANTS FOR 'cliente'@'localhost';
+SHOW GRANTS FOR 'empleado'@'localhost';
+SHOW GRANTS FOR 'director'@'localhost';
+
 

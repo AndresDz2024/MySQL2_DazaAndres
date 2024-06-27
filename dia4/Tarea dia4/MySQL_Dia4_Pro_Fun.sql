@@ -19,7 +19,6 @@ begin
     where id = id_cliente;
 end//
 delimiter ;
-select * from cliente;
 call actualizar_cliente(12345, 102, 'Juancho','Felipe','Casillas','Vida','JuanchoVida@gmail.com','6333333-3', '633-33-33', 'Piedecuesta', 'barrio 232#232-232');
 
 ## registrar empleados
@@ -45,7 +44,7 @@ begin
     where id = empleado_id;
 end//
 delimiter ;
-call actualizar_empleado(102, 103, 'Cristiano', null,'Ronaldo', 'siuu', 'elBichoSiuu@gmail.com', '7777777777', '123432177', 'niidea', 'sisas', 100);
+call actualizar_empleado(103, 102, 'Cristiano', null,'Ronaldo', 'siuu', 'elBichoSiuu@gmail.com', '7777777777', '123432177', 'niidea', 'sisas', 99);
 
 ## registrar vehiculos
 delimiter //
@@ -66,7 +65,6 @@ call registrar_vehiculo(101, 'Rojo', 'Gasolina', 'No', '5 personas', 4, 'Sedán'
 
 ## Actualizar vehiculos
 delimiter //
-
 create procedure actualizar_vehiculo( vehiculo_id int, nuevo_vehiculo_id int, vehiculo_color varchar(25), vehiculo_motor varchar(25), vehiculo_sunroof varchar(25), vehiculo_capacidad varchar(25), vehiculo_puertas int, vehiculo_modelo varchar(25), vehiculo_referencia varchar(25), vehiculo_placa varchar(25), vehiculo_tipo_vehiculo varchar(25))
 begin
     update vehiculo set id = nuevo_vehiculo_id, color = vehiculo_color, motor = vehiculo_motor, sunroof = vehiculo_sunroof, capacidad = vehiculo_capacidad, puertas = vehiculo_puertas, modelo = vehiculo_modelo, referencia = vehiculo_referencia, placa = vehiculo_placa, tipo_vehiculo = vehiculo_tipo_vehiculo
@@ -93,7 +91,7 @@ begin
 end//
 delimiter ;
 
-## consulta disponibilad de vehiculos para alquiler por tipo de vehiculo, rango de precios y fechas de disponibilidad
+## 	Procedimiento para consultar disponibilidad de vehículos para alquiler por tipo de vehiculo, rango de precios y fechas de disponibilidad
 delimiter //
 create procedure consultar_vehiculos(con_tipo_vehiculo varchar(25), con_fecha_inicio date, con_fecha_fin date, con_precio_min_dia int, con_precio_max_dia int, con_precio_min_semana int, con_precio_max_semana int)
 begin
@@ -104,7 +102,7 @@ begin
     order by vehiculo.id;
 end//
 delimiter ;
-call consultar_vehiculos('Automóvil', '2024-10-01', '2024-10-10', 75000, 100000000, 55000, 70000000);
+call consultar_vehiculos('Automóvil', '2024-10-01', '2024-10-10', 0, 0, 500000, 550000);
 
 ## Hacer alquiler de vehiculos
 delimiter //
@@ -120,7 +118,6 @@ begin
     select count(*) into existencia_cliente from cliente where id = cliente_id;
     select count(*) into existencia_sucursal_salida from sucursales where id = sucursal_salida_id;
     select count(*) into existencia_sucursal_llegada from sucursales where id = sucursal_llegada_id;
-    
     if existencia_vehiculo > 0 and existencia_empleado > 0 and existencia_cliente > 0 and existencia_sucursal_salida > 0 and existencia_sucursal_llegada > 0 then
         insert into alquileres(id, fecha_salida, fecha_llegada, fecha_esperada_llegada, valor_alquiler_semana, valor_alquiler_dia, porcentaje_descuento, valor_cotizado, valor_pagado, id_vehiculo, id_empleado, id_cliente, id_sucursal_salida, id_sucursal_llegada)
         values(alquiler_id, fecha_salida, fecha_llegada, fecha_esperada_llegada, valor_alquiler_semana, valor_alquiler_dia, porcentaje_descuento, valor_cotizado, valor_pagado, vehiculo_id, empleado_id, cliente_id, sucursal_salida_id, sucursal_llegada_id);
@@ -131,9 +128,7 @@ end//
 delimiter ;
 
 ## Historial de alquileres por cliente
--- Creación de la función para obtener el historial de alquileres por cliente
 delimiter //
-
 create function historial_alquileres(cliente_id INT) 
 returns text deterministic
 begin
@@ -159,5 +154,3 @@ end //
 delimiter ;
 
 select historial_alquileres(1) as Historial;
-
-
