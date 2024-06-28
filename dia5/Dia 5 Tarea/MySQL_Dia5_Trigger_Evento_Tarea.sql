@@ -29,6 +29,16 @@ begin
 end//
 delimiter ;
 
+## creacion de un trigger (accionario), para registrar en una tabla cada vez que se realize una actualización en la tabla de clientes con su horario
+delimiter //
+create trigger after_cliente_update
+after insert on cliente
+for each row
+begin
+	insert into inserciones_nuevas_clientes(id, nombre1, nombre2, apellido1, apellido2, email, cedula, celular, ciudad_residencia, direccion, action) values(new.id, new.nombre1, new.nombre2, new.apellido1, new.apellido2, new.email, new.cedula, new.celular, new.ciudad_residencia, new.direccion, "UPDATE");
+end//
+delimiter ;
+
 select * from inserciones_nuevas_clientes;
 
 create table backup_clientes(
