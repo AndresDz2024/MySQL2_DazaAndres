@@ -7,7 +7,6 @@ begin
 	insert into cliente(id, nombre1, nombre2, apellido1, apellido2, email, cedula, celular, ciudad_residencia, direccion)
     values (cliente_id, cliente_nombre1, cliente_nombre2, cliente_apellido1, cliente_apellido2, cliente_email, cliente_cedula, cliente_celular, cliente_ciudad_residencia, cliente_direccion);
 end//
-
 delimiter ;
 CALL registrar_cliente('101', 'Alberto', 'Nicol', 'instantaneo', 'Apesta', 'AlbertEinstein@gmail.com', '1234567890', '123-123-123', 'Bucaramanga', 'Rincon de Giron 100#123-123');
 
